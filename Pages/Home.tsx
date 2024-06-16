@@ -68,15 +68,17 @@ const Home: React.FC = () => {
         <Header />
         <ScrollView style={styles.scrollView}>
           <MyComponent formData={formData} setFormData={setFormData} />
-          <Button mode="contained" onPress={handleSubmit} style={styles.button}>
-            Get Recommendation
-          </Button>
+          <View style={styles.buttonWrapper}>
+            <Button mode="contained" onPress={handleSubmit} style={styles.button}>
+              Get Recommendation
+            </Button>
+          </View>
         </ScrollView>
       </SafeAreaView>
     </PaperProvider>
   );
 };
-  
+
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
@@ -103,11 +105,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 8,
   },
-  button: {
-    marginTop: 16,
-    marginVertical: 2,
+  buttonWrapper: {
     flex: 1,
-    marginHorizontal: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 16,
+  },
+  button: {
+    width: '75%',
     backgroundColor: '#000',
     borderRadius: 10,
     shadowColor: 'rgba(0, 0, 0, 0.25)',
@@ -152,7 +157,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   headerContainer: {
-    height: 40,
+    height: 120,
     justifyContent: 'center',
     alignItems: 'center',
   },

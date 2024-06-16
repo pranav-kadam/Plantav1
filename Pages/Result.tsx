@@ -32,18 +32,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: '#f5f5f5', // Light grey background for a clean look
+    backgroundColor: '#FFFAF0', // Light cream background for a warm look
   },
   recommendationText: {
     fontSize: 20, // Slightly larger font size for better readability
-    textAlign: 'left',
-    color: '#333', // Dark grey text color for better contrast
+    textAlign: 'center',
+    color: '#2E8B57', // Sea green color for the text
     marginVertical: 16, // Vertical margin for spacing around the text
     paddingHorizontal: 20, // Horizontal padding for better text alignment
     lineHeight: 28, // Increased line height for better text spacing
     fontFamily: 'Helvetica', // Modern, clean font family
+    backgroundColor: '#FFF8DC', // Light goldenrod background for the text
+    padding: 10, // Padding around the text for better spacing
+    borderRadius: 8, // Rounded corners for the text background
+    shadowColor: '#000', // Shadow color for the text background
+    shadowOffset: { width: 0, height: 2 }, // Shadow offset
+    shadowOpacity: 0.2, // Shadow opacity
+    shadowRadius: 4, // Shadow radius
   },
 });
+
 
 
 export default Result;
