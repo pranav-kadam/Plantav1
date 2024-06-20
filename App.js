@@ -51,7 +51,9 @@ const App = () => {
           <Stack.Screen name="Aesthetics">
             {(props) => <AestheticsScreen {...props} formData={formData} setFormData={setFormData} />}
           </Stack.Screen>
-          <Stack.Screen name="Results" component={Result} /> 
+          <Stack.Screen name="Results"  >
+            {(props) => <Result {...props} formData={formData} />}
+            </Stack.Screen> 
         </Stack.Navigator>
       </PaperProvider>
     </NavigationContainer>

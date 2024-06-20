@@ -1,16 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Text, View, ActivityIndicator } from 'react-native';
-import { RouteProp } from '@react-navigation/native';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import React from 'react';
+import { StyleSheet, View, ScrollView } from 'react-native';
+import { Text, Button } from 'react-native-paper';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-type RootStackParamList = {
-
-  Results: { formData: FormData };
-};
-
-type ResultScreenRouteProp = RouteProp<RootStackParamList, 'Results'>;
-
-interface FormData {
+type FormData = {
   lighting: string;
   lightingDetail: string;
   humidity: string;
@@ -19,79 +12,106 @@ interface FormData {
   wateringNeeds: string;
   purpose: string;
   aesthetics: string;
-}
+};
 
-interface Props {
-  route: ResultScreenRouteProp;
-}
+type RootStackParamList = {
+  Home: undefined;
+  Lighting: undefined;
+  Humidity: undefined;
+  Size: undefined;
+  Space: undefined;
+  WateringNeeds: undefined;
+  Purpose: undefined;
+  Aesthetics: undefined;
+  Results: { formData: FormData; resultText: string } | undefined;
+};
 
-const Result: React.FC<Props> = ({ route }) => {
-  const { formData } = route.params;
-  const [recommendation, setRecommendation] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+type ResultsScreenProps = NativeStackScreenProps<RootStackParamList, 'Results'>;
 
-  useEffect(() => {
-    const generatePlantRecommendation = async () => {
-      try {
-        const genAI = new GoogleGenerativeAI('AIzaSyAdkpv6uNy4pm1natsKdBdklUcSdyEW2TE');
-        const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-        const prompt = `I have a room with ${formData.lighting} lighting, ${formData.humidity} humidity, and a temperature of 25 degrees Celsius. The space is ${formData.space}. The size I'm looking for is ${formData.size}. I need a plant with ${formData.wateringNeeds} watering needs. The purpose of the plant is ${formData.purpose}, and I prefer ${formData.aesthetics} aesthetics. Can you recommend a houseplant for me?`;
-        const result = await model.generateContent(prompt);
-        setRecommendation(result.response.text());
-      } catch (error) {
-        console.error('Error generating plant recommendation:', error);
-        setRecommendation('Failed to fetch recommendation. Please try again.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    generatePlantRecommendation();
-  }, [formData]);
+const Result: React.FC<ResultsScreenProps> = ({ route, navigation }) => {
+  const { formData, resultText } = route.params ?? {
+    formData: {
+      lighting: '',
+      lightingDetail: '',
+      humidity: '',
+      size: '',
+      space: '',
+      wateringNeeds: '',
+      purpose: '',
+      aesthetics: '',
+    },
+    resultText: 'No recommendation available.',
+  };
 
   return (
-    <ScrollView>
-      <SafeAreaView style={styles.container}>
-        <View style={styles.content}>
-          {loading ? (
-            <ActivityIndicator size="large" color="#2E8B57" />
-          ) : (
-            <Text style={styles.recommendationText}>{recommendation}</Text>
-          )}
-        </View>
-      </SafeAreaView>
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.title}>Your Plant Recommendation</Text>
+      <Text style={styles.resultText}>{resultText}</Text>
+
+      <Text style={styles.subtitle}>Your Preferences:</Text>
+      <View style={styles.preferencesContainer}>
+        <Text style={styles.preferenceText}>Lighting: {formData.lighting}</Text>
+        <Text style={styles.preferenceText}>Lighting Detail: {formData.lightingDetail}</Text>
+        <Text style={styles.preferenceText}>Humidity: {formData.humidity}</Text>
+        <Text style={styles.preferenceText}>Size: {formData.size}</Text>
+        <Text style={styles.preferenceText}>Space: {formData.space}</Text>
+        <Text style={styles.preferenceText}>Watering Needs: {formData.wateringNeeds}</Text>
+        <Text style={styles.preferenceText}>Purpose: {formData.purpose}</Text>
+        <Text style={styles.preferenceText}>Aesthetics: {formData.aesthetics}</Text>
+      </View>
+
+      <Button mode="contained" onPress={() => navigation.navigate('Home')} style={styles.homeButton}>
+        Back to Home
+      </Button>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'center',
-    alignItems: 'center',
     padding: 16,
-    backgroundColor: '#FFFAF0',
+    backgroundColor: '#f5f5f5',
   },
-  content: {
-    flex: 1,
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
+    color: '#422800',
+  },
+  resultText: {
+    fontSize: 18,
+    color: '#333',
+    marginBottom: 24,
+  },
+  subtitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    color: '#422800',
+  },
+  preferencesContainer: {
+    marginBottom: 24,
+  },
+  preferenceText: {
+    fontSize: 16,
+    color: '#666',
+    marginBottom: 4,
+  },
+  homeButton: {
+    marginTop: 16,
+    backgroundColor: '#000',
+    borderRadius: 10,
+    shadowColor: 'rgba(0, 0, 0, 0.25)',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.8,
+    shadowRadius: 6,
+    elevation: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  recommendationText: {
-    fontSize: 20,
-    textAlign: 'center',
-    color: '#2E8B57',
-    marginVertical: 16,
-    paddingHorizontal: 20,
-    lineHeight: 28,
-    fontFamily: 'Helvetica',
-    backgroundColor: '#FFF8DC',
-    padding: 10,
-    borderRadius: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
   },
 });
 

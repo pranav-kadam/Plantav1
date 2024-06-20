@@ -6,7 +6,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 type RootStackParamList = {
   Home: undefined;
-  Results: { formData: FormData };
+  Results: { formData: FormData; resultText: string } | undefined;
 };
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
