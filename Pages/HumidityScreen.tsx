@@ -1,17 +1,13 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ImageBackground } from 'react-native';
 import { Text, Button, ProgressBar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { LinearGradient } from 'expo-linear-gradient';
 
 const HumidityScreen = ({ navigation, formData, setFormData }) => {
   const progress = 2 / 7; // Update this index based on the current screen
 
   return (
-    <LinearGradient
-      colors={['#ff9a9e', '#fad0c4', '#fad0c4', '#fad0c4']}
-      style={styles.container}
-    >
+    <ImageBackground source={require('./assets/bk.gif')} style={styles.container}>
       <View style={styles.content}>
         <ProgressBar progress={progress} color="#fff" style={styles.progressBar} />
         <Text style={styles.question}>What is the humidity level in your room?</Text>
@@ -58,7 +54,7 @@ const HumidityScreen = ({ navigation, formData, setFormData }) => {
           SKIP
         </Button>
       </View>
-    </LinearGradient>
+    </ImageBackground>
   );
 };
 
@@ -128,4 +124,3 @@ const styles = StyleSheet.create({
 });
 
 export default HumidityScreen;
-

@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, View, ImageBackground } from 'react-native';
 import { Button, Provider as PaperProvider, Title } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -26,22 +26,29 @@ const Home: React.FC = () => {
 
   return (
     <PaperProvider>
-      <SafeAreaView style={styles.container}>
-        <Header />
-        <ScrollView style={styles.scrollView}>
-          <View style={styles.content}>
-            <Title style={styles.title}>Welcome to PLANTA!</Title>
-            <Button mode="contained" onPress={handleBegin} style={styles.button}>
-              Let's begin
-            </Button>
-          </View>
-        </ScrollView>
-      </SafeAreaView>
+      <ImageBackground source={require('./assets/bk.gif')} style={styles.background}>
+        <SafeAreaView style={styles.container}>
+          <Header />
+          <ScrollView style={styles.scrollView}>
+            <View style={styles.content}>
+              <Title style={styles.title}>Welcome to PLANTA!</Title>
+              <Button mode="contained" onPress={handleBegin} style={styles.button}>
+                Let's begin
+              </Button>
+            </View>
+          </ScrollView>
+        </SafeAreaView>
+      </ImageBackground>
     </PaperProvider>
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
