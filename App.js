@@ -24,34 +24,35 @@ const App = () => {
     wateringNeeds: '',
     purpose: '',
     aesthetics: '',
+    progress: 0,
   });
   return (
     <NavigationContainer>
       <PaperProvider>
         <Stack.Navigator initialRouteName="Home">
           <Stack.Screen name="Home" component={Home} options={{headerShown: false}} />
-           <Stack.Screen name="Lighting">
+           <Stack.Screen name="Lighting" options={{headerShown: false}}>
             {(props) => <LightingScreen {...props} formData={formData} setFormData={setFormData} />}
           </Stack.Screen>
-          <Stack.Screen name="Humidity">
+          <Stack.Screen name="Humidity" options={{headerShown: false}}>
             {(props) => <HumidityScreen {...props} formData={formData} setFormData={setFormData} />}
           </Stack.Screen>
-          <Stack.Screen name="Size">
+          <Stack.Screen name="Size" options={{headerShown: false}}>
             {(props) => <SizeScreen {...props} formData={formData} setFormData={setFormData} />}
           </Stack.Screen>
-          <Stack.Screen name="Space">
+          <Stack.Screen name="Space" options={{headerShown: false}}>
             {(props) => <SpaceScreen {...props} formData={formData} setFormData={setFormData} />}
           </Stack.Screen>
-          <Stack.Screen name="WateringNeeds">
+          <Stack.Screen name="WateringNeeds" options={{headerShown: false}}>
             {(props) => <WateringNeedsScreen {...props} formData={formData} setFormData={setFormData} />}
           </Stack.Screen>
-          <Stack.Screen name="Purpose">
+          <Stack.Screen name="Purpose" options={{headerShown: false}}>
             {(props) => <PurposeScreen {...props} formData={formData} setFormData={setFormData} />}
           </Stack.Screen>
-          <Stack.Screen name="Aesthetics">
+          <Stack.Screen name="Aesthetics" options={{headerShown: false}}>
             {(props) => <AestheticsScreen {...props} formData={formData} setFormData={setFormData} />}
           </Stack.Screen>
-          <Stack.Screen name="Results"  >
+          <Stack.Screen name="Results"  options={{headerShown: false}}>
             {(props) => <Result {...props} formData={formData} />}
             </Stack.Screen> 
         </Stack.Navigator>

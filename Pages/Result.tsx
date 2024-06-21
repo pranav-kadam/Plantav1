@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
-import { Text, Button } from 'react-native-paper';
+import { Text, Button, ProgressBar } from 'react-native-paper';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { LinearGradient } from 'expo-linear-gradient';
 
 type FormData = {
   lighting: string;
@@ -43,47 +44,65 @@ const Result: React.FC<ResultsScreenProps> = ({ route, navigation }) => {
     resultText: 'No recommendation available.',
   };
 
+  const progress = 1; // Progress bar indicates completion
+
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Your Plant Recommendation</Text>
-      <Text style={styles.resultText}>{resultText}</Text>
+    <LinearGradient
+      colors={['#ff9a9e', '#fad0c4', '#fad0c4', '#fad0c4']}
+      style={styles.container}
+    >
+      <ScrollView contentContainerStyle={styles.content}>
+        <ProgressBar progress={progress} color="#fff" style={styles.progressBar} />
+        <Text style={styles.title}>Your Plant Recommendation</Text>
+        <Text style={styles.resultText}>{resultText}</Text>
 
-      <Text style={styles.subtitle}>Your Preferences:</Text>
-      <View style={styles.preferencesContainer}>
-        <Text style={styles.preferenceText}>Lighting: {formData.lighting}</Text>
-        <Text style={styles.preferenceText}>Lighting Detail: {formData.lightingDetail}</Text>
-        <Text style={styles.preferenceText}>Humidity: {formData.humidity}</Text>
-        <Text style={styles.preferenceText}>Size: {formData.size}</Text>
-        <Text style={styles.preferenceText}>Space: {formData.space}</Text>
-        <Text style={styles.preferenceText}>Watering Needs: {formData.wateringNeeds}</Text>
-        <Text style={styles.preferenceText}>Purpose: {formData.purpose}</Text>
-        <Text style={styles.preferenceText}>Aesthetics: {formData.aesthetics}</Text>
-      </View>
+        <Text style={styles.subtitle}>Your Preferences:</Text>
+        <View style={styles.preferencesContainer}>
+          <Text style={styles.preferenceText}>Lighting: {formData.lighting}</Text>
+          <Text style={styles.preferenceText}>Lighting Detail: {formData.lightingDetail}</Text>
+          <Text style={styles.preferenceText}>Humidity: {formData.humidity}</Text>
+          <Text style={styles.preferenceText}>Size: {formData.size}</Text>
+          <Text style={styles.preferenceText}>Space: {formData.space}</Text>
+          <Text style={styles.preferenceText}>Watering Needs: {formData.wateringNeeds}</Text>
+          <Text style={styles.preferenceText}>Purpose: {formData.purpose}</Text>
+          <Text style={styles.preferenceText}>Aesthetics: {formData.aesthetics}</Text>
+        </View>
 
-      <Button mode="contained" onPress={() => navigation.navigate('Home')} style={styles.homeButton}>
-        Back to Home
-      </Button>
-    </ScrollView>
+        <Button mode="contained" onPress={() => navigation.navigate('Home')} style={styles.homeButton}>
+          Back to Home
+        </Button>
+      </ScrollView>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
-    justifyContent: 'center',
+    flex: 1,
+  },
+  content: {
+    justifyContent: 'flex-start',
     padding: 16,
-    backgroundColor: '#f5f5f5',
+  },
+  progressBar: {
+    marginTop: 50,
+    height: 10,
+    borderRadius: 5,
+    marginVertical: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
     color: '#422800',
+    textAlign: 'center',
   },
   resultText: {
     fontSize: 18,
     color: '#333',
     marginBottom: 24,
+    textAlign: 'center',
   },
   subtitle: {
     fontSize: 20,
@@ -108,8 +127,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 6,
     elevation: 5,
-    paddingVertical: 10,
-    paddingHorizontal: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },

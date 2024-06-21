@@ -21,7 +21,7 @@ const Home: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
 
   const handleBegin = () => {
-    navigation.navigate('Lighting'  as keyof RootStackParamList);
+    navigation.navigate('Lighting' as keyof RootStackParamList);
   };
 
   return (
