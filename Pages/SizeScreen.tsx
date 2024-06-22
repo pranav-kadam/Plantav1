@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageBackground, View } from 'react-native';
+import { ImageBackground, View, SafeAreaView } from 'react-native';
 import { Text, Button, ProgressBar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './assets/styles';
@@ -8,8 +8,9 @@ const SizeScreen = ({ navigation, formData, setFormData }) => {
   const progress = 3 / 7; // Update this index based on the current screen
 
   return (
-    <ImageBackground source={require('./assets/bk.gif')} style={styles.container}>
-      <View style={styles.content}>
+    <ImageBackground source={require('./assets/bk.gif')} style={styles.background}>
+        <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
         <ProgressBar progress={progress} color="#fff" style={styles.progressBar} />
         <Text style={styles.question}>What size of plant are you looking for?</Text>
         <View style={styles.buttonGroup}>
@@ -20,6 +21,7 @@ const SizeScreen = ({ navigation, formData, setFormData }) => {
               navigation.navigate('Space'); // Navigate to the next screen
             }}
             style={styles.optionButton}
+            contentStyle={styles.buttonContent}
             labelStyle={styles.buttonText}
             icon={() => <Icon name="sprout" size={20} />}
           >
@@ -32,6 +34,7 @@ const SizeScreen = ({ navigation, formData, setFormData }) => {
               navigation.navigate('Space'); // Navigate to the next screen
             }}
             style={styles.optionButton}
+            contentStyle={styles.buttonContent}
             labelStyle={styles.buttonText}
             icon={() => <Icon name="flower" size={20} />}
           >
@@ -44,6 +47,7 @@ const SizeScreen = ({ navigation, formData, setFormData }) => {
               navigation.navigate('Space'); // Navigate to the next screen
             }}
             style={styles.optionButton}
+            contentStyle={styles.buttonContent}
             labelStyle={styles.buttonText}
             icon={() => <Icon name="tree" size={20} />}
           >
@@ -51,10 +55,15 @@ const SizeScreen = ({ navigation, formData, setFormData }) => {
           </Button>
         </View>
 
-        <Button mode="contained" onPress={() => navigation.navigate('Space')} style={styles.skipButton}>
+        <Button 
+        mode="contained" 
+        onPress={() => navigation.navigate('Space')} 
+        style={styles.skipButton} 
+        labelStyle={styles.skipButtonText}>
           SKIP
         </Button>
       </View>
+      </SafeAreaView>
       </ImageBackground>
   );
 };

@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
-import { Text, Button, ProgressBar } from 'react-native-paper';
+import { StyleSheet, View, ScrollView, SafeAreaView, ImageBackground } from 'react-native';
+import { Text, Button, ProgressBar, Card } from 'react-native-paper';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { LinearGradient } from 'expo-linear-gradient';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 type FormData = {
   lighting: string;
@@ -47,90 +47,129 @@ const Result: React.FC<ResultsScreenProps> = ({ route, navigation }) => {
   const progress = 1; // Progress bar indicates completion
 
   return (
-    <LinearGradient
-      colors={['#ff9a9e', '#fad0c4', '#fad0c4', '#fad0c4']}
-      style={styles.container}
-    >
-      <ScrollView contentContainerStyle={styles.content}>
-        <ProgressBar progress={progress} color="#fff" style={styles.progressBar} />
-        <Text style={styles.title}>Your Plant Recommendation</Text>
-        <Text style={styles.resultText}>{resultText}</Text>
-
-        <Text style={styles.subtitle}>Your Preferences:</Text>
-        <View style={styles.preferencesContainer}>
-          <Text style={styles.preferenceText}>Lighting: {formData.lighting}</Text>
-          <Text style={styles.preferenceText}>Lighting Detail: {formData.lightingDetail}</Text>
-          <Text style={styles.preferenceText}>Humidity: {formData.humidity}</Text>
-          <Text style={styles.preferenceText}>Size: {formData.size}</Text>
-          <Text style={styles.preferenceText}>Space: {formData.space}</Text>
-          <Text style={styles.preferenceText}>Watering Needs: {formData.wateringNeeds}</Text>
-          <Text style={styles.preferenceText}>Purpose: {formData.purpose}</Text>
-          <Text style={styles.preferenceText}>Aesthetics: {formData.aesthetics}</Text>
-        </View>
-
-        <Button mode="contained" onPress={() => navigation.navigate('Home')} style={styles.homeButton}>
-          Back to Home
-        </Button>
-      </ScrollView>
-    </LinearGradient>
+    <ImageBackground source={require('./assets/bk.gif')} style={styles.background}>
+      <SafeAreaView style={styles.safeArea}>
+        <ScrollView contentContainerStyle={styles.content}>
+          <ProgressBar progress={progress} color="#A084CA" style={styles.progressBar} />
+          <View style={styles.headerContainer}>
+            <Text style={styles.title}>Your Plant Recommendation</Text>
+            <Icon name="leaf" size={40} color="#A084CA" />
+          </View>
+          <Card style={styles.resultCard}>
+            <Card.Content>
+              <Text style={styles.resultText}>{resultText.replace(/\*/g, ' ')}</Text>
+            </Card.Content>
+          </Card>
+          
+          <Text style={styles.subtitle}>Your Preferences</Text>
+          <Card style={styles.preferencesCard}>
+            <Card.Content>
+              {Object.entries(formData).map(([key, value]) => (
+                <View key={key} style={styles.preferenceItem}>
+                  <Icon name={getIconName(key)} size={24} color="#A084CA" />
+                  <Text style={styles.preferenceText}>{`${key}: ${value}`}</Text>
+                </View>
+              ))}
+            </Card.Content>
+          </Card>
+          
+          <Button 
+            mode="contained" 
+            onPress={() => navigation.navigate('Home')} 
+            style={styles.homeButton}
+            labelStyle={styles.buttonText}
+          >
+            Back to Home
+          </Button>
+        </ScrollView>
+      </SafeAreaView>
+    </ImageBackground>
   );
 };
 
+const getIconName = (key: string): string => {
+  const iconMap: {[key: string]: string} = {
+    lighting: 'white-balance-sunny',
+    humidity: 'water-percent',
+    size: 'ruler',
+    space: 'home',
+    wateringNeeds: 'watering-can',
+    purpose: 'flower',
+    aesthetics: 'palette',
+  };
+  return iconMap[key] || 'leaf';
+};
+
 const styles = StyleSheet.create({
-  container: {
+  background: {
     flex: 1,
+    resizeMode: 'cover',
+  },
+  safeArea: {
+    flex: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
   },
   content: {
-    justifyContent: 'flex-start',
-    padding: 16,
+    flexGrow: 1,
+    padding: 24,
   },
   progressBar: {
-    marginTop: 50,
-    height: 10,
-    borderRadius: 5,
-    marginVertical: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    marginBottom: 24,
+    height: 8,
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 24,
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
-    marginBottom: 16,
-    color: '#422800',
-    textAlign: 'center',
+    color: '#5B4B8A',
+    fontFamily: 'Cursive',
+  },
+  resultCard: {
+    marginBottom: 24,
+    elevation: 4,
   },
   resultText: {
     fontSize: 18,
     color: '#333',
-    marginBottom: 24,
-    textAlign: 'center',
+    lineHeight: 24,
+    fontFamily: 'Cursive',
   },
   subtitle: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 8,
-    color: '#422800',
+    marginBottom: 16,
+    color: '#5B4B8A',
+    fontFamily: 'Cursive',
   },
-  preferencesContainer: {
+  preferencesCard: {
     marginBottom: 24,
+    elevation: 4,
+  },
+  preferenceItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
   },
   preferenceText: {
     fontSize: 16,
-    color: '#666',
-    marginBottom: 4,
+    color: '#333',
+    marginLeft: 12,
+    fontFamily: 'Cursive',
   },
   homeButton: {
-    marginTop: 16,
-    backgroundColor: '#000',
-    borderRadius: 10,
-    shadowColor: 'rgba(0, 0, 0, 0.25)',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.8,
-    shadowRadius: 6,
-    elevation: 5,
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginTop: 24,
+    backgroundColor: '#A084CA',
+    paddingVertical: 8,
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 18,
+    fontFamily: 'Cursive',
   },
 });
 
