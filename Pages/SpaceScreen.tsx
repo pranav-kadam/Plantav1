@@ -1,7 +1,6 @@
 import React from 'react';
 import { ImageBackground, View, SafeAreaView } from 'react-native';
 import { Text, Button, ProgressBar } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './assets/styles';
 
 const SpaceScreen = ({ navigation, formData, setFormData }) => {
@@ -12,7 +11,7 @@ const SpaceScreen = ({ navigation, formData, setFormData }) => {
       <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <ProgressBar progress={progress} color="#fff" style={styles.progressBar} />
-        <Text style={styles.question}>What type of space is available for the plant?</Text>
+        <Text style={styles.question}>Will the pant be placed indoors or outdoors?</Text>
         <View style={styles.buttonGroup}>
           <Button
             mode={formData.space === 'indoor' ? 'contained' : 'outlined'}
@@ -23,7 +22,6 @@ const SpaceScreen = ({ navigation, formData, setFormData }) => {
             style={styles.optionButton}
             contentStyle={styles.buttonContent}
             labelStyle={styles.buttonText}
-            icon={() => <Icon name="home-outline" size={20} />}
           >
             Indoor
           </Button>
@@ -36,8 +34,7 @@ const SpaceScreen = ({ navigation, formData, setFormData }) => {
             style={styles.optionButton}
             contentStyle={styles.buttonContent}
             labelStyle={styles.buttonText}
-            icon={() => <Icon name="nature" size={20} />}
-          >
+           >
             Outdoor
           </Button>
         </View>

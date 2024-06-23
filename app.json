@@ -3,6 +3,7 @@
     "name": "pp",
     "slug": "pp",
     "version": "1.0.0",
+    "platforms": ["android","web"],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",

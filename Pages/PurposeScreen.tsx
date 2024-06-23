@@ -1,7 +1,6 @@
 import React from 'react';
 import { ImageBackground, View, SafeAreaView } from 'react-native';
 import { Text, Button, ProgressBar } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './assets/styles';
 
 const PurposeScreen = ({ navigation, formData, setFormData }) => {
@@ -23,8 +22,7 @@ const PurposeScreen = ({ navigation, formData, setFormData }) => {
             style={styles.optionButton}
             contentStyle={styles.buttonContent}
             labelStyle={styles.buttonText}
-            icon={() => <Icon name="palette" size={20} />}
-          >
+           >
             Decoration
           </Button>
           <Button
@@ -36,7 +34,6 @@ const PurposeScreen = ({ navigation, formData, setFormData }) => {
             style={styles.optionButton}
             contentStyle={styles.buttonContent}
             labelStyle={styles.buttonText}
-            icon={() => <Icon name="air-filter" size={20} />}
           >
             Air Purification
           </Button>
@@ -49,8 +46,7 @@ const PurposeScreen = ({ navigation, formData, setFormData }) => {
             style={styles.optionButton}
             contentStyle={styles.buttonContent}
             labelStyle={styles.buttonText}
-            icon={() => <Icon name="food-apple-outline" size={20} />}
-          >
+           >
             Edible
           </Button>
         </View>

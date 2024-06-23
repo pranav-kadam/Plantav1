@@ -1,7 +1,6 @@
 import React from 'react';
 import { ImageBackground, View,SafeAreaView } from 'react-native';
 import { Text, Button, ProgressBar } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './assets/styles';
 
 const WateringNeedsScreen = ({ navigation, formData, setFormData }) => {
@@ -23,8 +22,7 @@ const WateringNeedsScreen = ({ navigation, formData, setFormData }) => {
             style={styles.optionButton}
             contentStyle={styles.buttonContent}
             labelStyle={styles.buttonText}
-            icon={() => <Icon name="calendar-today" size={20} />}
-          >
+            >
             Daily
           </Button>
           <Button
@@ -36,8 +34,7 @@ const WateringNeedsScreen = ({ navigation, formData, setFormData }) => {
             style={styles.optionButton}
             contentStyle={styles.buttonContent}
             labelStyle={styles.buttonText}
-            icon={() => <Icon name="calendar-week" size={20} />}
-          >
+            >
             Weekly
           </Button>
           <Button
@@ -49,7 +46,6 @@ const WateringNeedsScreen = ({ navigation, formData, setFormData }) => {
             style={styles.optionButton}
             contentStyle={styles.buttonContent}
             labelStyle={styles.buttonText}
-            icon={() => <Icon name="calendar-month" size={20} />}
           >
             Monthly
           </Button>

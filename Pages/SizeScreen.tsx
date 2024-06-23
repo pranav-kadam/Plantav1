@@ -1,7 +1,6 @@
 import React from 'react';
 import { ImageBackground, View, SafeAreaView } from 'react-native';
 import { Text, Button, ProgressBar } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './assets/styles';
 
 const SizeScreen = ({ navigation, formData, setFormData }) => {
@@ -12,7 +11,7 @@ const SizeScreen = ({ navigation, formData, setFormData }) => {
         <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <ProgressBar progress={progress} color="#fff" style={styles.progressBar} />
-        <Text style={styles.question}>What size of plant are you looking for?</Text>
+        <Text style={styles.question}>What is the size of the plant are you looking for?</Text>
         <View style={styles.buttonGroup}>
           <Button
             mode={formData.size === 'small' ? 'contained' : 'outlined'}
@@ -23,8 +22,7 @@ const SizeScreen = ({ navigation, formData, setFormData }) => {
             style={styles.optionButton}
             contentStyle={styles.buttonContent}
             labelStyle={styles.buttonText}
-            icon={() => <Icon name="sprout" size={20} />}
-          >
+           >
             Small
           </Button>
           <Button
@@ -36,8 +34,7 @@ const SizeScreen = ({ navigation, formData, setFormData }) => {
             style={styles.optionButton}
             contentStyle={styles.buttonContent}
             labelStyle={styles.buttonText}
-            icon={() => <Icon name="flower" size={20} />}
-          >
+           >
             Medium
           </Button>
           <Button
@@ -49,8 +46,7 @@ const SizeScreen = ({ navigation, formData, setFormData }) => {
             style={styles.optionButton}
             contentStyle={styles.buttonContent}
             labelStyle={styles.buttonText}
-            icon={() => <Icon name="tree" size={20} />}
-          >
+            >
             Large
           </Button>
         </View>

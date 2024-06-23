@@ -1,7 +1,6 @@
 import React from 'react';
 import {  View, ImageBackground,  SafeAreaView } from 'react-native';
 import { Text, Button, ProgressBar } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './assets/styles';
 
 const HumidityScreen = ({ navigation, formData, setFormData }) => {
@@ -23,8 +22,7 @@ const HumidityScreen = ({ navigation, formData, setFormData }) => {
             style={styles.optionButton}
             contentStyle={styles.buttonContent}
             labelStyle={styles.buttonText}
-            icon={() => <Icon name="water-off" size={20} />}
-          >
+           >
             Low (&lt;20%)
           </Button>
           <Button
@@ -36,8 +34,7 @@ const HumidityScreen = ({ navigation, formData, setFormData }) => {
             style={styles.optionButton}
             contentStyle={styles.buttonContent}
             labelStyle={styles.buttonText}
-            icon={() => <Icon name="water" size={20} />}
-          >
+              >
             Normal (20%-60%)
           </Button>
           <Button
@@ -49,8 +46,7 @@ const HumidityScreen = ({ navigation, formData, setFormData }) => {
             style={styles.optionButton}
             contentStyle={styles.buttonContent}
             labelStyle={styles.buttonText}
-            icon={() => <Icon name="water-plus" size={20} />}
-          >
+           >
             High (&gt;60%)
           </Button>
         </View>
