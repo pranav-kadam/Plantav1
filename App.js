@@ -9,6 +9,8 @@ import SpaceScreen from './Pages/SpaceScreen';
 import PurposeScreen from './Pages/PurposeScreen';
 import WateringNeedsScreen from './Pages/WateringNeedsScreen';
 import AestheticsScreen from './Pages/AestheticsScreen';
+import FloweringScreen from './Pages/FloweringScreen'; // New import
+import TemperatureScreen from './Pages/TemperatureScreen'; // New import
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -17,14 +19,14 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   const [formData, setFormData] = useState({
     lighting: '',
-    lightingDetail: '',
     humidity: '',
     size: '',
     space: '',
     wateringNeeds: '',
     purpose: '',
     aesthetics: '',
-    progress: 0,
+    flowering: '', // New state
+    temperature: '', // New state
   });
   return (
     <NavigationContainer>
@@ -33,6 +35,12 @@ const App = () => {
           <Stack.Screen name="Home" component={Home} options={{headerShown: false}} />
            <Stack.Screen name="Lighting" options={{headerShown: false}}>
             {(props) => <LightingScreen {...props} formData={formData} setFormData={setFormData} />}
+          </Stack.Screen>
+          <Stack.Screen name="Flowering" options={{headerShown: false}}>
+            {(props) => <FloweringScreen {...props} formData={formData} setFormData={setFormData} />}
+          </Stack.Screen>
+          <Stack.Screen name="Temperature" options={{headerShown: false}}>
+            {(props) => <TemperatureScreen {...props} formData={formData} setFormData={setFormData} />}
           </Stack.Screen>
           <Stack.Screen name="Humidity" options={{headerShown: false}}>
             {(props) => <HumidityScreen {...props} formData={formData} setFormData={setFormData} />}

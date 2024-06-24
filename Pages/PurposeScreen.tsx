@@ -4,10 +4,10 @@ import { Text, Button, ProgressBar } from 'react-native-paper';
 import styles from './assets/styles';
 
 const PurposeScreen = ({ navigation, formData, setFormData }) => {
-  const progress = 6 / 7; // Update this index based on the current screen
+  const progress = 7 / 9; // Update this index based on the current screen
 
   return (
-    <ImageBackground source={require('./assets/bk.gif')} style={styles.background}>
+    <ImageBackground source={require('./assets/bg6.png')} style={styles.background}>
        <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <ProgressBar progress={progress} color="#fff" style={styles.progressBar} />
@@ -17,7 +17,7 @@ const PurposeScreen = ({ navigation, formData, setFormData }) => {
             mode={formData.purpose === 'decoration' ? 'contained' : 'outlined'}
             onPress={() => {
               setFormData({ ...formData, purpose: 'decoration' });
-              navigation.navigate('Aesthetics'); // Navigate to the next screen
+              navigation.navigate('Flowering'); // Navigate to the next screen
             }}
             style={styles.optionButton}
             contentStyle={styles.buttonContent}
@@ -29,7 +29,7 @@ const PurposeScreen = ({ navigation, formData, setFormData }) => {
             mode={formData.purpose === 'airPurification' ? 'contained' : 'outlined'}
             onPress={() => {
               setFormData({ ...formData, purpose: 'airPurification' });
-              navigation.navigate('Aesthetics'); // Navigate to the next screen
+              navigation.navigate('FLowering'); // Navigate to the next screen
             }}
             style={styles.optionButton}
             contentStyle={styles.buttonContent}
@@ -41,7 +41,7 @@ const PurposeScreen = ({ navigation, formData, setFormData }) => {
             mode={formData.purpose === 'edible' ? 'contained' : 'outlined'}
             onPress={() => {
               setFormData({ ...formData, purpose: 'edible' });
-              navigation.navigate('Aesthetics'); // Navigate to the next screen
+              navigation.navigate('FLowering'); // Navigate to the next screen
             }}
             style={styles.optionButton}
             contentStyle={styles.buttonContent}
@@ -53,7 +53,7 @@ const PurposeScreen = ({ navigation, formData, setFormData }) => {
 
         <Button 
         mode="contained" 
-        onPress={() => navigation.navigate('Aesthetics')} 
+        onPress={() => navigation.navigate('Flowering')} 
         style={styles.skipButton}
         labelStyle={styles.skipButtonText}>
           SKIP

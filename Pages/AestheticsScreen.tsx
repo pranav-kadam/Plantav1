@@ -25,15 +25,39 @@ const AestheticsScreen = ({ navigation, formData, setFormData }) => {
   const generatePlantRecommendation = async () => {
     const genAI = new GoogleGenerativeAI('AIzaSyAdkpv6uNy4pm1natsKdBdklUcSdyEW2TE');
     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-    const prompt = `I have a room with ${formData.lighting} lighting, ${formData.humidity} humidity, and a temperature of 25 degrees Celsius. The space is ${formData.space}. The size I'm looking for is ${formData.size}. I need a plant with ${formData.wateringNeeds} watering needs. The purpose of the plant is ${formData.purpose}, and I prefer ${formData.aesthetics} aesthetics. Can you recommend a houseplant for me? Make a detailed plant care plant in tabular form. It should have approximate associated costs and timelines. The table should be a downloadable excel sheet.`;
-    const result = await model.generateContent(prompt);
+    const prompt = `I'm looking for a houseplant recommendation based on the following criteria:
+    1. Lighting: ${formData.lighting} (e.g., bright indirect, low light, full sun)  
+    2. Humidity: ${formData.humidity}
+    3. Temperature: ${formData.temperature}
+    4. Available space: ${formData.space}
+    5. Desired plant size: ${formData.size} 
+    6. Watering needs: ${formData.wateringNeeds}
+    7. Purpose: ${formData.purpose}
+    8. Flowering Needs: ${formData.flowering}
+    9. Preferred aesthetics: ${formData.aesthetics}
+    Based on these specifications, please recommend a suitable houseplant. Provide a detailed plant care plan, including:
+    1. Plant name (common and scientific)
+    2. Brief description
+    3. Optimal care conditions (light, water, humidity, temperature)
+    4. Fertilization schedule
+    5. Pruning/grooming needs
+    6. Potential issues and solutions
+    7. Growth rate and expected size at maturity
+    8. Propagation methods
+    9. Timelines:
+        a. Watering frequency
+        b. Fertilization frequency
+        c. Repotting frequency
+        d. Expected time to reach mature size
+    Please ensure the recommendation takes into account all provided criteria and offers a well-rounded solution for the user's specific needs and environment.
+    Also recommend youtube video links about taking care of this plant.`;   const result = await model.generateContent(prompt);
     return result.response.text();
   };
 
-  const progress = 7 / 7;
+  const progress = 9/9;
 
   return (
-    <ImageBackground source={require('./assets/bk.gif')} style={styles.background}>
+    <ImageBackground source={require('./assets/bg7.png')} style={styles.background}>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
           <ProgressBar progress={progress} color="#fff" style={styles.progressBar} />

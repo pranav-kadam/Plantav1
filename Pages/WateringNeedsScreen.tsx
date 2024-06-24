@@ -4,10 +4,10 @@ import { Text, Button, ProgressBar } from 'react-native-paper';
 import styles from './assets/styles';
 
 const WateringNeedsScreen = ({ navigation, formData, setFormData }) => {
-  const progress = 5 / 7; 
+  const progress = 6 / 9; 
 
   return (
-    <ImageBackground source={require('./assets/bk.gif')} style={styles.background}>
+    <ImageBackground source={require('./assets/bg4.png')} style={styles.background}>
       <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <ProgressBar progress={progress} color="#fff" style={styles.progressBar} />

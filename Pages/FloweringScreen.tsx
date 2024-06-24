@@ -3,45 +3,45 @@ import { View, ImageBackground, SafeAreaView } from 'react-native';
 import { Text, Button, ProgressBar } from 'react-native-paper';
 import styles from './assets/styles';
 
-const LightingScreen = ({ navigation, formData, setFormData }) => {
-  const progress = 1 / 9;
+const FloweringScreen = ({ navigation, formData, setFormData }) => {
+  const progress =  8/ 9;  // Adjust this based on the screen's position in your flow
 
   return (
     <ImageBackground source={require('./assets/bg10.png')} style={styles.background}>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
           <ProgressBar progress={progress} color="#F4EAD5" style={styles.progressBar} />
-          <Text style={styles.question}>What kind of lighting does the room have?</Text>
+          <Text style={styles.question}>Do you prefer flowering plants?</Text>
           <View style={styles.buttonGroup}>
             <Button
-              mode={formData.lighting === 'Natural Light' ? 'contained' : 'outlined'}
+              mode={formData.flowering === 'Yes' ? 'contained' : 'outlined'}
               onPress={() => {
-                setFormData({ ...formData, lighting: 'Natural Light' });
-                navigation.navigate('Temperature');
+                setFormData({ ...formData, flowering: 'Yes' });
+                navigation.navigate('Aesthetics');
               }}
-              style={[styles.optionButton, formData.lighting === 'Natural Light' && styles.selectedButton]}
-              contentStyle={styles.buttonContent}
-              labelStyle={styles.buttonText}
-              >
-              Natural Light
-            </Button>
-            <Button
-              mode={formData.lighting === 'Artificial Light' ? 'contained' : 'outlined'}
-              onPress={() => {
-                setFormData({ ...formData, lighting: 'Artificial Light' });
-                navigation.navigate('Temperature');
-              }}
-              style={[styles.optionButton, formData.lighting === 'Artificial Light' && styles.selectedButton]}
+              style={[styles.optionButton, formData.flowering === 'Yes' && styles.selectedButton]}
               contentStyle={styles.buttonContent}
               labelStyle={styles.buttonText}
             >
-              Artificial Light
+              Yes
+            </Button>
+            <Button
+              mode={formData.flowering === 'No' ? 'contained' : 'outlined'}
+              onPress={() => {
+                setFormData({ ...formData, flowering: 'No' });
+                navigation.navigate('Aesthetics');
+              }}
+              style={[styles.optionButton, formData.flowering === 'No' && styles.selectedButton]}
+              contentStyle={styles.buttonContent}
+              labelStyle={styles.buttonText}
+            >
+              No
             </Button>
           </View>
           
-          <Button 
-            mode="outlined" 
-            onPress={() => navigation.navigate('Temperature')} 
+          <Button
+            mode="outlined"
+            onPress={() => navigation.navigate('Aesthetics')}
             style={styles.skipButton}
             labelStyle={styles.skipButtonText}
           >
@@ -53,4 +53,4 @@ const LightingScreen = ({ navigation, formData, setFormData }) => {
   );
 };
 
-export default LightingScreen;
+export default FloweringScreen;

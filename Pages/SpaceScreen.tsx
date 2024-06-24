@@ -4,10 +4,10 @@ import { Text, Button, ProgressBar } from 'react-native-paper';
 import styles from './assets/styles';
 
 const SpaceScreen = ({ navigation, formData, setFormData }) => {
-  const progress = 4 / 7; // Update this index based on the current screen
+  const progress = 5 / 9; // Update this index based on the current screen
 
   return (
-    <ImageBackground source={require('./assets/bk.gif')} style={styles.background}>
+    <ImageBackground source={require('./assets/bg3.png')} style={styles.background}>
       <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <ProgressBar progress={progress} color="#fff" style={styles.progressBar} />

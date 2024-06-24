@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, ScrollView, SafeAreaView, ImageBackground } from 'react-native';
-import { Text, Button, ProgressBar, Card } from 'react-native-paper';
+import { Text, Button, Card } from 'react-native-paper';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -47,14 +47,12 @@ const Result: React.FC<ResultsScreenProps> = ({ route, navigation }) => {
   const progress = 1; // Progress bar indicates completion
 
   return (
-    <ImageBackground source={require('./assets/bk.gif')} style={styles.background}>
+    <ImageBackground source={require('./assets/bg11.png')} style={styles.background}>
       <SafeAreaView style={styles.safeArea}>
         <ScrollView contentContainerStyle={styles.content}>
-          <ProgressBar progress={progress} color="#A084CA" style={styles.progressBar} />
           <View style={styles.headerContainer}>
-            <Text style={styles.title}>Your Plant Recommendation</Text>
-            <Icon name="leaf" size={40} color="#A084CA" />
-          </View>
+            <Text style={styles.title}>Your Plant Pal</Text>
+             </View>
           <Card style={styles.resultCard}>
             <Card.Content>
               <Text style={styles.resultText}>{resultText.replace(/\*/g, ' ')}</Text>
@@ -107,7 +105,7 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
   },
   content: {
     flexGrow: 1,
@@ -128,6 +126,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#5B4B8A',
     fontFamily: 'Cursive',
+    marginTop: 40
   },
   resultCard: {
     marginBottom: 24,
@@ -174,3 +173,6 @@ const styles = StyleSheet.create({
 });
 
 export default Result;
+
+
+//Brazilian woman watering plant, Lo-Fi aesthetic, gardening, subdued pastel tones, darkish lighting, sunset, christ de redeemer in background, highly detailed, sharp focus, cinematic still, dynamic composition, magical, beautiful, stunning, brave, passionate, mystical, cute, generous, dramatic, expressive, marvelous, thought, fancy, pretty, attractive, epic
