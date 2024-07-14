@@ -4,6 +4,7 @@ import { Text, Button, Card } from 'react-native-paper';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+
 type FormData = {
   lighting: string;
   lightingDetail: string;
@@ -44,6 +45,10 @@ const Result: React.FC<ResultsScreenProps> = ({ route, navigation }) => {
     resultText: 'No recommendation available.',
   };
 
+  const transformKey = (key: string) => {
+    return key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+  };
+
   const progress = 1; // Progress bar indicates completion
 
   return (
@@ -52,7 +57,7 @@ const Result: React.FC<ResultsScreenProps> = ({ route, navigation }) => {
         <ScrollView contentContainerStyle={styles.content}>
           <View style={styles.headerContainer}>
             <Text style={styles.title}>Your Plant Pal</Text>
-             </View>
+          </View>
           <Card style={styles.resultCard}>
             <Card.Content>
               <Text style={styles.resultText}>{resultText.replace(/\*/g, ' ')}</Text>
@@ -65,7 +70,7 @@ const Result: React.FC<ResultsScreenProps> = ({ route, navigation }) => {
               {Object.entries(formData).map(([key, value]) => (
                 <View key={key} style={styles.preferenceItem}>
                   <Icon name={getIconName(key)} size={24} color="#A084CA" />
-                  <Text style={styles.preferenceText}>{`${key}: ${value}`}</Text>
+                  <Text style={styles.preferenceText}>{`${transformKey(key)}: ${value}`}</Text>
                 </View>
               ))}
             </Card.Content>
@@ -125,7 +130,6 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     color: '#5B4B8A',
-    fontFamily: 'Cursive',
     marginTop: 40
   },
   resultCard: {
@@ -136,14 +140,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#333',
     lineHeight: 24,
-    fontFamily: 'Cursive',
   },
   subtitle: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
     color: '#5B4B8A',
-    fontFamily: 'Cursive',
   },
   preferencesCard: {
     marginBottom: 24,
@@ -158,7 +160,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#333',
     marginLeft: 12,
-    fontFamily: 'Cursive',
+
   },
   homeButton: {
     marginTop: 24,
@@ -168,7 +170,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#FFFFFF',
     fontSize: 18,
-    fontFamily: 'Cursive',
   },
 });
 

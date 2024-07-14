@@ -29,7 +29,7 @@ const PurposeScreen = ({ navigation, formData, setFormData }) => {
             mode={formData.purpose === 'airPurification' ? 'contained' : 'outlined'}
             onPress={() => {
               setFormData({ ...formData, purpose: 'airPurification' });
-              navigation.navigate('FLowering'); // Navigate to the next screen
+              navigation.navigate('Flowering'); // Navigate to the next screen
             }}
             style={styles.optionButton}
             contentStyle={styles.buttonContent}
@@ -41,7 +41,7 @@ const PurposeScreen = ({ navigation, formData, setFormData }) => {
             mode={formData.purpose === 'edible' ? 'contained' : 'outlined'}
             onPress={() => {
               setFormData({ ...formData, purpose: 'edible' });
-              navigation.navigate('FLowering'); // Navigate to the next screen
+              navigation.navigate('Flowering'); // Navigate to the next screen
             }}
             style={styles.optionButton}
             contentStyle={styles.buttonContent}

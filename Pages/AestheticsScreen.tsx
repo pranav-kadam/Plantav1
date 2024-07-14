@@ -26,7 +26,7 @@ const AestheticsScreen = ({ navigation, formData, setFormData }) => {
     const genAI = new GoogleGenerativeAI('AIzaSyAdkpv6uNy4pm1natsKdBdklUcSdyEW2TE');
     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
     const prompt = `I'm looking for a houseplant recommendation based on the following criteria:
-    1. Lighting: ${formData.lighting} (e.g., bright indirect, low light, full sun)  
+    1. Lighting: ${formData.lighting} 
     2. Humidity: ${formData.humidity}
     3. Temperature: ${formData.temperature}
     4. Available space: ${formData.space}
@@ -49,8 +49,9 @@ const AestheticsScreen = ({ navigation, formData, setFormData }) => {
         b. Fertilization frequency
         c. Repotting frequency
         d. Expected time to reach mature size
-    Please ensure the recommendation takes into account all provided criteria and offers a well-rounded solution for the user's specific needs and environment.
-    Also recommend youtube video links about taking care of this plant.`;   const result = await model.generateContent(prompt);
+    Please ensure the recommendation takes into account all provided criteria and offers a well-rounded solution for the user's specific needs and environment
+     Format the response in HTML with appropriate headings, paragraphs, and lists for better readability.`;
+    const result = await model.generateContent(prompt);
     return result.response.text();
   };
 

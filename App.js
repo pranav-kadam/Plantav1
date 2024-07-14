@@ -9,8 +9,8 @@ import SpaceScreen from './Pages/SpaceScreen';
 import PurposeScreen from './Pages/PurposeScreen';
 import WateringNeedsScreen from './Pages/WateringNeedsScreen';
 import AestheticsScreen from './Pages/AestheticsScreen';
-import FloweringScreen from './Pages/FloweringScreen'; // New import
-import TemperatureScreen from './Pages/TemperatureScreen'; // New import
+import FloweringScreen from './Pages/FloweringScreen'; 
+import TemperatureScreen from './Pages/TemperatureScreen'; 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -25,8 +25,8 @@ const App = () => {
     wateringNeeds: '',
     purpose: '',
     aesthetics: '',
-    flowering: '', // New state
-    temperature: '', // New state
+    flowering: '', 
+    temperature: '',
   });
   return (
     <NavigationContainer>
