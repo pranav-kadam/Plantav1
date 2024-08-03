@@ -1,77 +1,111 @@
 import React from 'react';
-import { StyleSheet, View, ScrollView, SafeAreaView, ImageBackground } from 'react-native';
-import { Text, Button, Card } from 'react-native-paper';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { StyleSheet, View, ScrollView, SafeAreaView, ImageBackground, TouchableOpacity } from 'react-native';
+import { Text, Card, Button, Divider } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
 
+const Result = ({ route, navigation }) => {
+  const { resultText } = route.params ?? { resultText: 'No recommendation available.' };
 
-type FormData = {
-  lighting: string;
-  lightingDetail: string;
-  humidity: string;
-  size: string;
-  space: string;
-  wateringNeeds: string;
-  purpose: string;
-  aesthetics: string;
-};
-
-type RootStackParamList = {
-  Home: undefined;
-  Lighting: undefined;
-  Humidity: undefined;
-  Size: undefined;
-  Space: undefined;
-  WateringNeeds: undefined;
-  Purpose: undefined;
-  Aesthetics: undefined;
-  Results: { formData: FormData; resultText: string } | undefined;
-};
-
-type ResultsScreenProps = NativeStackScreenProps<RootStackParamList, 'Results'>;
-
-const Result: React.FC<ResultsScreenProps> = ({ route, navigation }) => {
-  const { formData, resultText } = route.params ?? {
-    formData: {
-      lighting: '',
-      lightingDetail: '',
-      humidity: '',
-      size: '',
-      space: '',
-      wateringNeeds: '',
-      purpose: '',
-      aesthetics: '',
-    },
-    resultText: 'No recommendation available.',
+  const parseResultText = (text) => {
+    const sections = text.split('##').filter(section => section.trim() !== '');
+    return sections.map(section => {
+      const [title, ...content] = section.split('\n').filter(line => line.trim() !== '');
+      return { title: title.trim(), content: content.join('\n').trim() };
+    });
   };
 
-  const transformKey = (key: string) => {
-    return key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+  const removeAsterisks = (text) => {
+    return text.replace(/\*/g, '');
   };
 
-  const progress = 1; // Progress bar indicates completion
+  const removeRecommendation = (text) => {
+    return text.replace(/^Recommendation:\s*/, '');
+  };
+
+  const renderContent = (content) => {
+    const lines = removeAsterisks(content).split('\n');
+    return lines.map((line, index) => {
+      const colonIndex = line.indexOf(':');
+      if (colonIndex !== -1) {
+        const boldPart = line.slice(0, colonIndex + 1);
+        const restPart = line.slice(colonIndex + 1);
+        return (
+          <Text key={index} style={styles.sectionContent}>
+            <Text style={styles.boldText}>{boldPart}</Text>
+            {restPart}
+          </Text>
+        );
+      }
+      return <Text key={index} style={styles.sectionContent}>{line}</Text>;
+    });
+  };
+
+  const renderSection = (title, content) => (
+    <View key={title} style={styles.section}>
+      <Text style={styles.sectionTitle}>{removeAsterisks(title)}</Text>
+      {renderContent(content)}
+    </View>
+  );
+
+  const parsedSections = parseResultText(resultText);
+
+  const generatePDF = async () => {
+    const htmlContent = `
+      <html>
+        <body>
+          <h1>Your Plant Pal</h1>
+          ${parsedSections.map((section, index) => `
+            <h2>${removeAsterisks(removeRecommendation(section.title))}</h2>
+            <p>${removeAsterisks(section.content)}</p>
+            ${index < parsedSections.length - 1 ? '<hr>' : ''}
+          `).join('')}
+        </body>
+      </html>
+    `;
+
+    try {
+      const options = {
+        html: htmlContent,
+        fileName: 'plant_pal_result',
+        directory: 'Documents',
+      };
+
+      const file = await RNHTMLtoPDF.convert(options);
+      console.log(file.filePath);
+      // Here you would typically open the PDF or show a success message
+      alert('PDF saved successfully!');
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      alert('Failed to generate PDF. Please try again.');
+    }
+  };
 
   return (
     <ImageBackground source={require('./assets/bg11.png')} style={styles.background}>
       <SafeAreaView style={styles.safeArea}>
         <ScrollView contentContainerStyle={styles.content}>
-          <View style={styles.headerContainer}>
+          <View style={styles.titleContainer}>
             <Text style={styles.title}>Your Plant Pal</Text>
+            <TouchableOpacity onPress={generatePDF}>
+              <Icon name="download" size={24} color="#5B4B8A" />
+            </TouchableOpacity>
           </View>
+          
           <Card style={styles.resultCard}>
             <Card.Content>
-              <Text style={styles.resultText}>{resultText.replace(/\*/g, ' ')}</Text>
-            </Card.Content>
-          </Card>
-          
-          <Text style={styles.subtitle}>Your Preferences</Text>
-          <Card style={styles.preferencesCard}>
-            <Card.Content>
-              {Object.entries(formData).map(([key, value]) => (
-                <View key={key} style={styles.preferenceItem}>
-                  <Icon name={getIconName(key)} size={24} color="#A084CA" />
-                  <Text style={styles.preferenceText}>{`${transformKey(key)}: ${value}`}</Text>
-                </View>
+              {parsedSections.map((section, index) => (
+                <React.Fragment key={index}>
+                  {index === 0 ? (
+                    <>
+                      <Text style={styles.recommendationTitle}>{removeAsterisks(removeRecommendation(section.title))}</Text>
+                      {renderContent(section.content)}
+                    </>
+                  ) : (
+                    renderSection(section.title, section.content)
+                  )}
+                  {index < parsedSections.length - 1 && <Divider style={styles.divider} />}
+                </React.Fragment>
               ))}
             </Card.Content>
           </Card>
@@ -79,28 +113,28 @@ const Result: React.FC<ResultsScreenProps> = ({ route, navigation }) => {
           <Button 
             mode="contained" 
             onPress={() => navigation.navigate('Home')} 
-            style={styles.homeButton}
-            labelStyle={styles.buttonText}
+            style={styles.button}
+            icon={({ size, color }) => (
+              <Icon name="home" size={size} color={color} />
+            )}
           >
             Back to Home
+          </Button>
+
+          <Button 
+            mode="contained" 
+            onPress={generatePDF} 
+            style={styles.button}
+            icon={({ size, color }) => (
+              <Icon name="file-pdf-box" size={size} color={color} />
+            )}
+          >
+            Download PDF
           </Button>
         </ScrollView>
       </SafeAreaView>
     </ImageBackground>
   );
-};
-
-const getIconName = (key: string): string => {
-  const iconMap: {[key: string]: string} = {
-    lighting: 'white-balance-sunny',
-    humidity: 'water-percent',
-    size: 'ruler',
-    space: 'home',
-    wateringNeeds: 'watering-can',
-    purpose: 'flower',
-    aesthetics: 'palette',
-  };
-  return iconMap[key] || 'leaf';
 };
 
 const styles = StyleSheet.create({
@@ -114,66 +148,63 @@ const styles = StyleSheet.create({
   },
   content: {
     flexGrow: 1,
-    padding: 24,
+    padding: 16,
   },
-  progressBar: {
-    marginBottom: 24,
-    height: 8,
-  },
-  headerContainer: {
+  titleContainer: {
     flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    marginTop: 40,
     marginBottom: 24,
   },
   title: {
-    fontSize: 28,
+    fontSize: 32,
     fontWeight: 'bold',
     color: '#5B4B8A',
-    marginTop: 40
+    textAlign: 'center',
+    marginRight: 10,
   },
   resultCard: {
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    borderRadius: 16,
     marginBottom: 24,
     elevation: 4,
   },
-  resultText: {
-    fontSize: 18,
-    color: '#333',
-    lineHeight: 24,
-  },
-  subtitle: {
+  recommendationTitle: {
     fontSize: 24,
     fontWeight: 'bold',
+    color: '#fff',
     marginBottom: 16,
-    color: '#5B4B8A',
   },
-  preferencesCard: {
-    marginBottom: 24,
-    elevation: 4,
+  divider: {
+    backgroundColor: '#fff',
+    height: 1,
+    marginVertical: 16,
   },
-  preferenceItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 12,
+  section: {
+    marginBottom: 16,
   },
-  preferenceText: {
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 8,
+  },
+  sectionContent: {
     fontSize: 16,
-    color: '#333',
-    marginLeft: 12,
-
+    color: '#fff',
+    lineHeight: 24,
+    marginBottom: 8,
   },
-  homeButton: {
-    marginTop: 24,
-    backgroundColor: '#A084CA',
+  boldText: {
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  button: {
+    marginTop: 12,
+    backgroundColor: '#5B4B8A',
     paddingVertical: 8,
-  },
-  buttonText: {
-    color: '#FFFFFF',
-    fontSize: 18,
   },
 });
 
 export default Result;
-
-
-//Brazilian woman watering plant, Lo-Fi aesthetic, gardening, subdued pastel tones, darkish lighting, sunset, christ de redeemer in background, highly detailed, sharp focus, cinematic still, dynamic composition, magical, beautiful, stunning, brave, passionate, mystical, cute, generous, dramatic, expressive, marvelous, thought, fancy, pretty, attractive, epic

@@ -50,7 +50,7 @@ const AestheticsScreen = ({ navigation, formData, setFormData }) => {
         c. Repotting frequency
         d. Expected time to reach mature size
     Please ensure the recommendation takes into account all provided criteria and offers a well-rounded solution for the user's specific needs and environment
-     Format the response in HTML with appropriate headings, paragraphs, and lists for better readability.`;
+     Format the response with appropriate headings, paragraphs, and lists for better readability.`;
     const result = await model.generateContent(prompt);
     return result.response.text();
   };
