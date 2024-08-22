@@ -13,6 +13,7 @@ import FloweringScreen from './Pages/FloweringScreen';
 import TemperatureScreen from './Pages/TemperatureScreen'; 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useFonts } from 'expo-font';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,14 @@ const App = () => {
     flowering: '', 
     temperature: '',
   });
+
+  const [fontsLoaded] = useFonts({
+    'teko': require('./assets/fonts/Teko-Light.ttf'),
+  });
+
+  if (!fontsLoaded) {
+    return null; // Or a loading screen
+  }
 
   return (
     <NavigationContainer>

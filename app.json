@@ -3,7 +3,10 @@
     "name": "pp",
     "slug": "pp",
     "version": "1.0.0",
-    "platforms": ["android","web"],
+    "platforms": [
+      "android",
+      "web"
+    ],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -12,6 +15,12 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "fonts": [
+      {
+        "asset": "assets/fonts/YourCustomFont.ttf",
+        "family": "YourCustomFontName"
+      }
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -29,6 +38,9 @@
       "eas": {
         "projectId": "c5f54d4c-adee-413c-b2f1-23ae811dfa03"
       }
-    }
+    },
+    "plugins": [
+      "expo-font"
+    ]
   }
 }

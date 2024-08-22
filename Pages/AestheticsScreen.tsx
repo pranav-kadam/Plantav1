@@ -102,7 +102,7 @@ const AestheticsScreen = ({ navigation, formData, setFormData }) => {
               style={styles.skipButton}
               labelStyle={styles.skipButtonText}
             >
-              Submit
+              Lets Go!
             </Button>
           )}
         </View>
