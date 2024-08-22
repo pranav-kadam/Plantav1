@@ -28,41 +28,71 @@ const App = () => {
     flowering: '', 
     temperature: '',
   });
+
   return (
     <NavigationContainer>
       <PaperProvider>
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen name="Home" component={Home} options={{headerShown: false}} />
-           <Stack.Screen name="Lighting" options={{headerShown: false}}>
+        <Stack.Navigator
+          initialRouteName="Home"
+          screenOptions={{
+            animation: 'slide_from_right', // Use slide_from_right for right-to-left transitions
+          }}
+        >
+          <Stack.Screen 
+            name="Home" 
+            component={Home} 
+            options={{headerShown: false}}  
+          />
+          <Stack.Screen 
+            name="Lighting" 
+            options={{headerShown: false}}>
             {(props) => <LightingScreen {...props} formData={formData} setFormData={setFormData} />}
           </Stack.Screen>
-          <Stack.Screen name="Flowering" options={{headerShown: false}}>
+          <Stack.Screen 
+            name="Flowering" 
+            options={{headerShown: false}}>
             {(props) => <FloweringScreen {...props} formData={formData} setFormData={setFormData} />}
           </Stack.Screen>
-          <Stack.Screen name="Temperature" options={{headerShown: false}}>
+          <Stack.Screen 
+            name="Temperature" 
+            options={{headerShown: false}}>
             {(props) => <TemperatureScreen {...props} formData={formData} setFormData={setFormData} />}
           </Stack.Screen>
-          <Stack.Screen name="Humidity" options={{headerShown: false}}>
+          <Stack.Screen 
+            name="Humidity" 
+            options={{headerShown: false}}>
             {(props) => <HumidityScreen {...props} formData={formData} setFormData={setFormData} />}
           </Stack.Screen>
-          <Stack.Screen name="Size" options={{headerShown: false}}>
+          <Stack.Screen 
+            name="Size" 
+            options={{headerShown: false}}>
             {(props) => <SizeScreen {...props} formData={formData} setFormData={setFormData} />}
           </Stack.Screen>
-          <Stack.Screen name="Space" options={{headerShown: false}}>
+          <Stack.Screen 
+            name="Space" 
+            options={{headerShown: false}}>
             {(props) => <SpaceScreen {...props} formData={formData} setFormData={setFormData} />}
           </Stack.Screen>
-          <Stack.Screen name="WateringNeeds" options={{headerShown: false}}>
+          <Stack.Screen 
+            name="WateringNeeds" 
+            options={{headerShown: false}}>
             {(props) => <WateringNeedsScreen {...props} formData={formData} setFormData={setFormData} />}
           </Stack.Screen>
-          <Stack.Screen name="Purpose" options={{headerShown: false}}>
+          <Stack.Screen 
+            name="Purpose" 
+            options={{headerShown: false}}>
             {(props) => <PurposeScreen {...props} formData={formData} setFormData={setFormData} />}
           </Stack.Screen>
-          <Stack.Screen name="Aesthetics" options={{headerShown: false}}>
+          <Stack.Screen 
+            name="Aesthetics" 
+            options={{headerShown: false}}>
             {(props) => <AestheticsScreen {...props} formData={formData} setFormData={setFormData} />}
           </Stack.Screen>
-          <Stack.Screen name="Results"  options={{headerShown: false}}>
+          <Stack.Screen 
+            name="Results"  
+            options={{headerShown: false}}>
             {(props) => <Result {...props} formData={formData} />}
-            </Stack.Screen> 
+          </Stack.Screen> 
         </Stack.Navigator>
       </PaperProvider>
     </NavigationContainer>

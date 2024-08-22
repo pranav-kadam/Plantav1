@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, ImageBackground, SafeAreaView } from 'react-native';
 import { Text, Button, ProgressBar } from 'react-native-paper';
 import styles from './assets/styles';
 
 const FloweringScreen = ({ navigation, formData, setFormData }) => {
-  const progress =  8/ 9;  // Adjust this based on the screen's position in your flow
+  const progress = 8 / 9;
+  const [isNavigating, setIsNavigating] = useState(false);
+
+  const handlePress = (floweringPreference) => {
+    setFormData({ ...formData, flowering: floweringPreference });
+    setIsNavigating(true);
+    navigation.navigate('Aesthetics');
+  };
 
   return (
     <ImageBackground source={require('./assets/bg10.png')} style={styles.background}>
@@ -15,35 +22,38 @@ const FloweringScreen = ({ navigation, formData, setFormData }) => {
           <View style={styles.buttonGroup}>
             <Button
               mode={formData.flowering === 'Yes' ? 'contained' : 'outlined'}
-              onPress={() => {
-                setFormData({ ...formData, flowering: 'Yes' });
-                navigation.navigate('Aesthetics');
-              }}
+              onPress={() => handlePress('Yes')}
               style={[styles.optionButton, formData.flowering === 'Yes' && styles.selectedButton]}
               contentStyle={styles.buttonContent}
               labelStyle={styles.buttonText}
+              disabled={isNavigating}
+              accessibilityLabel="Yes, prefer flowering plants"
             >
               Yes
             </Button>
             <Button
               mode={formData.flowering === 'No' ? 'contained' : 'outlined'}
-              onPress={() => {
-                setFormData({ ...formData, flowering: 'No' });
-                navigation.navigate('Aesthetics');
-              }}
+              onPress={() => handlePress('No')}
               style={[styles.optionButton, formData.flowering === 'No' && styles.selectedButton]}
               contentStyle={styles.buttonContent}
               labelStyle={styles.buttonText}
+              disabled={isNavigating}
+              accessibilityLabel="No, do not prefer flowering plants"
             >
               No
             </Button>
           </View>
-          
+
           <Button
             mode="outlined"
-            onPress={() => navigation.navigate('Aesthetics')}
+            onPress={() => {
+              setIsNavigating(true);
+              navigation.navigate('Aesthetics');
+            }}
             style={styles.skipButton}
             labelStyle={styles.skipButtonText}
+            disabled={isNavigating}
+            accessibilityLabel="Skip to Aesthetics screen"
           >
             SKIP
           </Button>
@@ -53,4 +63,4 @@ const FloweringScreen = ({ navigation, formData, setFormData }) => {
   );
 };
 
-export default FloweringScreen;
+export default React.memo(FloweringScreen);
