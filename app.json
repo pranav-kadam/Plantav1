@@ -17,8 +17,12 @@
     },
     "fonts": [
       {
-        "asset": "assets/fonts/YourCustomFont.ttf",
-        "family": "YourCustomFontName"
+        "asset": "assets/fonts/Teko-Regular.ttf",
+        "family": "teko"
+      },
+      {
+        "asset": "assets/fonts/PlusJakartaSans-Medium.ttf",
+        "family": "jak"
       }
     ],
     "ios": {

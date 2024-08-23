@@ -1,9 +1,10 @@
 import React, { useMemo, useCallback } from 'react';
-import { StyleSheet, View, ScrollView, SafeAreaView, ImageBackground, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, ScrollView, SafeAreaView, ImageBackground, TouchableOpacity, Share, Platform } from 'react-native';
 import { Text, Card, Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import { LinearGradient } from 'expo-linear-gradient';
+import * as Print from 'expo-print';
+import * as Sharing from 'expo-sharing';
 
 const Result = ({ route, navigation }) => {
   const { resultText } = route.params ?? { resultText: 'No recommendation available.' };
@@ -27,7 +28,7 @@ const Result = ({ route, navigation }) => {
         const boldPart = line.slice(0, colonIndex + 1);
         const restPart = line.slice(colonIndex + 1);
         return (
-          <Text key={index} style={styles.sectionContent}>
+          <Text key={index} style={styles.sectionContent} selectable={true}>
             <Text style={styles.boldText}>{boldPart}</Text>
             {restPart}
           </Text>
@@ -44,30 +45,53 @@ const Result = ({ route, navigation }) => {
     </View>
   ), [removeAsterisks, renderContent]);
 
+  const shareResult = useCallback(async () => {
+    try {
+      const shareContent = parsedSections.map(section => 
+        `${removeAsterisks(removeRecommendation(section.title))}\n\n${removeAsterisks(section.content)}`
+      ).join('\n\n---\n\n');
+
+      await Share.share({
+        message: `Your Plant Pal Recommendation:\n\n${shareContent}`,
+        title: 'Your Plant Pal Recommendation'
+      });
+    } catch (error) {
+      console.error('Error sharing result:', error);
+      alert('Failed to share result. Please try again.');
+    }
+  }, [parsedSections, removeAsterisks, removeRecommendation]);
+
   const generatePDF = useCallback(async () => {
     const htmlContent = `
       <html>
-        <body style="font-family: 'Courier New', monospace; background-color: #f0e6d2; color: #5B4B8A; padding: 20px;">
-          <h1 style="text-align: center; color: #5B4B8A;">Your Plant Pal</h1>
-          ${parsedSections.map((section, index) => `
-            <h2 style="color: #7E6D94;">${removeAsterisks(removeRecommendation(section.title))}</h2>
-            <p style="line-height: 1.6;">${removeAsterisks(section.content)}</p>
-            ${index < parsedSections.length - 1 ? '<hr style="border: 1px dashed #5B4B8A;">' : ''}
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; }
+            h1 { color: #5B4B8A; }
+            h2 { color: #000; margin-top: 20px; }
+            p { margin-bottom: 10px; }
+          </style>
+        </head>
+        <body>
+          <h1>Your PlantPal Growth Schedule</h1>
+          ${parsedSections.map(section => `
+            <h2>${removeAsterisks(removeRecommendation(section.title))}</h2>
+            <p>${removeAsterisks(section.content).replace(/\n/g, '<br>')}</p>
           `).join('')}
         </body>
       </html>
     `;
 
     try {
-      const options = {
-        html: htmlContent,
-        fileName: 'plant_pal_result',
-        directory: 'Documents',
-      };
-
-      const file = await RNHTMLtoPDF.convert(options);
-      console.log(file.filePath);
-      alert('PDF saved successfully!');
+      const { uri } = await Print.printToFileAsync({ html: htmlContent });
+      if (Platform.OS === "ios") {
+        await Sharing.shareAsync(uri);
+      } else {
+        const permission = await Sharing.isAvailableAsync();
+        if (permission) {
+          await Sharing.shareAsync(uri);
+        }
+      }
     } catch (error) {
       console.error('Error generating PDF:', error);
       alert('Failed to generate PDF. Please try again.');
@@ -84,8 +108,8 @@ const Result = ({ route, navigation }) => {
           <ScrollView contentContainerStyle={styles.content}>
             <View style={styles.titleContainer}>
               <Text style={styles.title}>Your Plant Pal</Text>
-              <TouchableOpacity onPress={generatePDF}>
-                <Icon name="download" size={24} color="#5B4B8A" />
+              <TouchableOpacity onPress={shareResult}>
+                <Icon name="share-variant" size={24} color="#5B4B8A" />
               </TouchableOpacity>
             </View>
             
@@ -122,13 +146,24 @@ const Result = ({ route, navigation }) => {
 
             <Button 
               mode="contained" 
+              onPress={shareResult} 
+              style={styles.button}
+              icon={({ size, color }) => (
+                <Icon name="share-variant" size={size} color={color} />
+              )}
+            >
+              Share Result
+            </Button>
+
+            <Button 
+              mode="contained" 
               onPress={generatePDF} 
               style={styles.button}
               icon={({ size, color }) => (
                 <Icon name="file-pdf-box" size={size} color={color} />
               )}
             >
-              Download PDF
+              Download as PDF
             </Button>
           </ScrollView>
         </SafeAreaView>
@@ -165,7 +200,7 @@ const styles = StyleSheet.create({
     color: '#5B4B8A',
     textAlign: 'center',
     marginRight: 10,
-    fontFamily: 'Courier',
+    fontFamily: 'teko',
   },
   resultCard: {
     backgroundColor: 'rgba(240, 230, 210, 0.9)',

@@ -32,6 +32,7 @@ const App = () => {
 
   const [fontsLoaded] = useFonts({
     'teko': require('./assets/fonts/Teko-Light.ttf'),
+    'jak': require('./assets/fonts/PlusJakartaSans-Medium.ttf'),
   });
 
   if (!fontsLoaded) {
