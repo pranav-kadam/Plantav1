@@ -18,7 +18,7 @@ const SpaceScreen = ({ navigation, formData, setFormData }) => {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
           <ProgressBar progress={progress} color="#fff" style={styles.progressBar} />
-          <Text style={styles.question}>Will the plant be placed indoors or outdoors?</Text>
+          <Text style={styles.question}>Will the plant be indoors or outdoors?</Text>
           <View style={styles.buttonGroup}>
             <Button
               mode={formData.space === 'indoor' ? 'contained' : 'outlined'}

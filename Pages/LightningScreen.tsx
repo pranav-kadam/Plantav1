@@ -16,7 +16,7 @@ const LightingScreen = ({ navigation, formData, setFormData }) => {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
           <ProgressBar progress={progress} color="#F4EAD5" style={styles.progressBar} />
-          <Text style={styles.question}>What kind of lighting does the room have?</Text>
+          <Text style={styles.question}>What's the lighting like in your room?</Text>
           <View style={styles.buttonGroup}>
             <Button
               mode={formData.lighting === 'Natural Light' ? 'contained' : 'outlined'}

@@ -18,7 +18,7 @@ const PurposeScreen = ({ navigation, formData, setFormData }) => {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
           <ProgressBar progress={progress} color="#fff" style={styles.progressBar} />
-          <Text style={styles.question}>What is the primary purpose of the plant?</Text>
+          <Text style={styles.question}>What's the main reason you're getting this plant?</Text>
           <View style={styles.buttonGroup}>
             <Button
               mode={formData.purpose === 'decoration' ? 'contained' : 'outlined'}

@@ -18,7 +18,7 @@ const FloweringScreen = ({ navigation, formData, setFormData }) => {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
           <ProgressBar progress={progress} color="#F4EAD5" style={styles.progressBar} />
-          <Text style={styles.question}>Do you prefer flowering plants?</Text>
+          <Text style={styles.question}>Are you into flowering plants?</Text>
           <View style={styles.buttonGroup}>
             <Button
               mode={formData.flowering === 'Yes' ? 'contained' : 'outlined'}

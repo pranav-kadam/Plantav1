@@ -18,7 +18,7 @@ const SizeScreen = ({ navigation, formData, setFormData }) => {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
           <ProgressBar progress={progress} color="#fff" style={styles.progressBar} />
-          <Text style={styles.question}>What size of plant are you looking for?</Text>
+          <Text style={styles.question}>What size plant are you looking for?</Text>
           <View style={styles.buttonGroup}>
             <Button
               mode={formData.size === 'small' ? 'contained' : 'outlined'}

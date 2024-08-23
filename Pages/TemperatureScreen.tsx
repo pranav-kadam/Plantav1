@@ -18,7 +18,7 @@ const TemperatureScreen = ({ navigation, formData, setFormData }) => {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
           <ProgressBar progress={progress} color="#F4EAD5" style={styles.progressBar} />
-          <Text style={styles.question}>What temperature range do you prefer for your plant?</Text>
+          <Text style={styles.question}>What’s the temperature range like in your room?</Text>
           <View style={styles.buttonGroup}>
             <Button
               mode={formData.temperature === 'Cool' ? 'contained' : 'outlined'}

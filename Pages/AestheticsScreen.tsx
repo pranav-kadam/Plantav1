@@ -62,7 +62,7 @@ const AestheticsScreen = ({ navigation, formData, setFormData }) => {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
           <ProgressBar progress={progress} color="#fff" style={styles.progressBar} />
-          <Text style={styles.question}>What kind of aesthetics do you prefer?</Text>
+          <Text style={styles.question}>"What's your vibe when it comes to style?"</Text>
           <View style={styles.buttonGroup}>
             <Button
               mode={formData.aesthetics === 'modern' ? 'contained' : 'outlined'}

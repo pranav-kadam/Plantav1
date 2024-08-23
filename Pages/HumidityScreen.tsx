@@ -18,7 +18,7 @@ const HumidityScreen = ({ navigation, formData, setFormData }) => {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
           <ProgressBar progress={progress} color="#fff" style={styles.progressBar} />
-          <Text style={styles.question}>What is the humidity level in your room?</Text>
+          <Text style={styles.question}>How humid is your room?</Text>
           <View style={styles.buttonGroup}>
             <Button
               mode={formData.humidity === 'low' ? 'contained' : 'outlined'}

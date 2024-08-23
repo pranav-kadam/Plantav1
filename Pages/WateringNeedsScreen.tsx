@@ -18,7 +18,7 @@ const WateringNeedsScreen = ({ navigation, formData, setFormData }) => {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
           <ProgressBar progress={progress} color="#fff" style={styles.progressBar} />
-          <Text style={styles.question}>How often do you want to water your plant?</Text>
+          <Text style={styles.question}>How often do you want to water it?</Text>
           <View style={styles.buttonGroup}>
             <Button
               mode={formData.wateringNeeds === 'daily' ? 'contained' : 'outlined'}
