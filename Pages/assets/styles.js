@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-
 const styles = StyleSheet.create({
   background: {
     flex: 1,
@@ -11,7 +10,35 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Add translucent overlay
+  },
+  glassContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 20,
+    overflow: 'hidden',
+    padding: 20,
+  },
+
+  glassButton: {
+    borderRadius: 10,
+    overflow: 'hidden',
+    marginBottom: 10,
+  },
+
+  buttonContent: {
+    height: 50,
+  },
+
+  buttonText: {
+    color: '#000000',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+
+  selectedButton: {
+    backgroundColor: 'rgba(255, 255, 255, 0.4)',
   },
   progressBar: {
     marginBottom: 40,
@@ -35,34 +62,35 @@ const styles = StyleSheet.create({
   },
   optionButton: {
     marginBottom: 20,
-    borderRadius: 10,  // Added some roundness
+    borderRadius: 25, 
     borderWidth: 2,
-    borderColor: '#000000',  // Changed to black
-    backgroundColor: '#000000',  // Changed to black
+    borderColor: '#F4EAD5', 
+    backgroundColor: 'rgba(244, 234, 213, 0.7)', // Semi-transparent background
+    backdropFilter: 'blur(10px)', // Add blur effect (note: not supported on all React Native platforms)
   },
   selectedButton: {
-    backgroundColor: '#FFFFFF',  // Changed to white for selected state
+    backgroundColor: '#F4EAD5',  
   },
   buttonContent: {
     height: 60,
     flexDirection: 'row-reverse',
   },
   buttonText: {
-    color: '#FFFFFF',  // Changed to white
+    color: '#000000', // Ensure good contrast
     fontSize: 18,
     fontFamily: 'sans-serif',
     fontWeight: 'bold',
     letterSpacing: 1,
     marginLeft: 10,
-    textShadowColor: 'rgba(1, 1, 1, 0.9)',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 5,
+    textShadowColor: 'rgba(255, 255, 255, 0.5)',
+    textShadowOffset: { width: 1, height: 1 },  
+    textShadowRadius: 3,  
   },
   selectedButtonText: {
-    color: '#000000',  // Added for selected state (black text)
+    color: '#000000',  
   },
   skipButton: {
-    borderRadius: 0,
+    borderRadius: 25,  
     borderWidth: 2,
     borderColor: '#CCC5B9',
     backgroundColor: 'transparent',
