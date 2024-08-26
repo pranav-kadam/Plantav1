@@ -12,7 +12,7 @@ const LightingScreen = ({ navigation, formData, setFormData }) => {
   };
 
   return (
-    <ImageBackground source={require('./assets/bg10.png')} style={styles.background}>
+    <ImageBackground source={require('./assets/bg9.png')} style={styles.background}>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
           <ProgressBar progress={progress} color="#F4EAD5" style={styles.progressBar} />

@@ -7,28 +7,27 @@ import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
 
 const Result = ({ route, navigation }) => {
-  const { resultText } = route.params ?? { resultText: 'No recommendation available.' };
+  const { resultText = 'No recommendation available.' } = route.params ?? {};
 
   const parsedSections = useMemo(() => {
-    const sections = resultText.split('##').filter(section => section.trim() !== '');
-    return sections.map(section => {
-      const [title, ...content] = section.split('\n').filter(line => line.trim() !== '');
-      return { title: title.trim(), content: content.join('\n').trim() };
-    });
+    return resultText.split('##')
+      .filter(section => section.trim())
+      .map(section => {
+        const [title, ...content] = section.split('\n').filter(line => line.trim());
+        return { title: title.trim(), content: content.join('\n').trim() };
+      });
   }, [resultText]);
 
   const removeAsterisks = useCallback((text) => text.replace(/\*/g, ''), []);
   const removeRecommendation = useCallback((text) => text.replace(/^Recommendation:\s*/, ''), []);
 
   const renderContent = useCallback((content) => {
-    const lines = removeAsterisks(content).split('\n');
-    return lines.map((line, index) => {
+    return removeAsterisks(content).split('\n').map((line, index) => {
       const colonIndex = line.indexOf(':');
       if (colonIndex !== -1) {
-        const boldPart = line.slice(0, colonIndex + 1);
-        const restPart = line.slice(colonIndex + 1);
+        const [boldPart, restPart] = [line.slice(0, colonIndex + 1), line.slice(colonIndex + 1)];
         return (
-          <Text key={index} style={styles.sectionContent} selectable={true}>
+          <Text key={index} style={styles.sectionContent} selectable>
             <Text style={styles.boldText}>{boldPart}</Text>
             {restPart}
           </Text>
@@ -66,9 +65,8 @@ const Result = ({ route, navigation }) => {
       <html>
         <head>
           <style>
-            body { font-family: Arial, sans-serif; }
-            h1 { color: #5B4B8A; }
-            h2 { color: #000; margin-top: 20px; }
+            body { font-family: Arial, sans-serif; color: #000; }
+            h1, h2 { margin-top: 20px; }
             p { margin-bottom: 10px; }
           </style>
         </head>
@@ -86,11 +84,8 @@ const Result = ({ route, navigation }) => {
       const { uri } = await Print.printToFileAsync({ html: htmlContent });
       if (Platform.OS === "ios") {
         await Sharing.shareAsync(uri);
-      } else {
-        const permission = await Sharing.isAvailableAsync();
-        if (permission) {
-          await Sharing.shareAsync(uri);
-        }
+      } else if (await Sharing.isAvailableAsync()) {
+        await Sharing.shareAsync(uri);
       }
     } catch (error) {
       console.error('Error generating PDF:', error);
@@ -109,7 +104,7 @@ const Result = ({ route, navigation }) => {
             <View style={styles.titleContainer}>
               <Text style={styles.title}>Your Plant Pal</Text>
               <TouchableOpacity onPress={shareResult}>
-                <Icon name="share-variant" size={24} color="#5B4B8A" />
+                <Icon name="share-variant" size={24} color="#000" />
               </TouchableOpacity>
             </View>
             
@@ -133,38 +128,19 @@ const Result = ({ route, navigation }) => {
               </Card.Content>
             </Card>
             
-            <Button 
-              mode="contained" 
-              onPress={() => navigation.navigate('Home')} 
-              style={styles.button}
-              icon={({ size, color }) => (
-                <Icon name="home" size={size} color={color} />
-              )}
-            >
-              Back to Home
-            </Button>
-
-            <Button 
-              mode="contained" 
-              onPress={shareResult} 
-              style={styles.button}
-              icon={({ size, color }) => (
-                <Icon name="share-variant" size={size} color={color} />
-              )}
-            >
-              Share Result
-            </Button>
-
-            <Button 
-              mode="contained" 
-              onPress={generatePDF} 
-              style={styles.button}
-              icon={({ size, color }) => (
-                <Icon name="file-pdf-box" size={size} color={color} />
-              )}
-            >
-              Download as PDF
-            </Button>
+            {['Home', 'share-variant', 'file-pdf-box'].map((iconName, index) => (
+              <Button 
+                key={iconName}
+                mode="contained" 
+                onPress={index === 0 ? () => navigation.navigate('Home') : index === 1 ? shareResult : generatePDF}
+                style={styles.button}
+                icon={({ size, color }) => (
+                  <Icon name={iconName} size={size} color={color} />
+                )}
+              >
+                {index === 0 ? 'Back to Home' : index === 1 ? 'Share Result' : 'Download as PDF'}
+              </Button>
+            ))}
           </ScrollView>
         </SafeAreaView>
       </LinearGradient>
@@ -197,7 +173,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 36,
     fontWeight: 'bold',
-    color: '#5B4B8A',
+    color: '#000',
     textAlign: 'center',
     marginRight: 10,
     fontFamily: 'teko',
@@ -208,7 +184,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     elevation: 4,
     borderWidth: 2,
-    borderColor: '#5B4B8A',
+    borderColor: '#000',
     opacity: 0.8
   },
   recommendationTitle: {
@@ -220,7 +196,7 @@ const styles = StyleSheet.create({
   },
   divider: {
     height: 2,
-    backgroundColor: '#5B4B8A',
+    backgroundColor: '#000',
     marginVertical: 16,
     opacity: 0.5,
   },
@@ -244,6 +220,7 @@ const styles = StyleSheet.create({
   boldText: {
     fontWeight: 'bold',
     fontSize: 20,
+    color: '#000',
   },
   button: {
     marginTop: 12,

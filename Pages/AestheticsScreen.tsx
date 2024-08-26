@@ -89,7 +89,7 @@ const AestheticsScreen = ({ navigation, formData, setFormData }) => {
               contentStyle={styles.buttonContent}
               labelStyle={styles.buttonText}
               >
-              Abstract
+              Tropical
             </Button>
           </View>
           

@@ -27,7 +27,7 @@ const Home: React.FC = () => {
 
   return (
     <PaperProvider>
-      <ImageBackground source={require('./assets/bg.png')} style={styles.background}>
+      <ImageBackground source={require('./assets/bg8.png')} style={styles.background}>
         <SafeAreaView style={styles.safeArea}>
           <Header />
           <ScrollView contentContainerStyle={styles.scrollViewContent}>

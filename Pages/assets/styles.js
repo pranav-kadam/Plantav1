@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     color: '#F4EAD5',
     textAlign: 'center',
-    fontFamily: 'sans-serif',
     letterSpacing: 1,
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: 2, height: 2 },
@@ -78,7 +77,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#000000', // Ensure good contrast
     fontSize: 18,
-    fontFamily: 'sans-serif',
     fontWeight: 'bold',
     letterSpacing: 1,
     marginLeft: 10,
