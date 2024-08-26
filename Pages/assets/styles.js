@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   },
 
   buttonText: {
+    fontFamily: 'jak',
     color: '#000000',
     fontSize: 16,
     fontWeight: 'bold',
@@ -46,6 +47,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(244, 234, 213, 0.3)',
   },
   question: {
+    fontFamily: 'jak',
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 40,
@@ -75,6 +77,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row-reverse',
   },
   buttonText: {
+    fontFamily: 'jak',
     color: '#000000', // Ensure good contrast
     fontSize: 18,
     fontWeight: 'bold',
@@ -85,6 +88,7 @@ const styles = StyleSheet.create({
     textShadowRadius: 3,  
   },
   selectedButtonText: {
+    fontFamily: 'jak',
     color: '#000000',  
   },
   skipButton: {
@@ -94,6 +98,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   skipButtonText: {
+    fontFamily: 'jak',
     color: '#CCC5B9',
     fontSize: 16,
     letterSpacing: 1,

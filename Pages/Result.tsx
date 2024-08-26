@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     color: '#000',
     textAlign: 'center',
     marginRight: 10,
-    fontFamily: 'teko',
+    fontFamily: 'jak',
   },
   resultCard: {
     backgroundColor: 'rgba(240, 230, 210, 0.9)',

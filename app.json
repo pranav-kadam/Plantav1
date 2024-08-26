@@ -8,13 +8,9 @@
       "web"
     ],
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/favicon.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
+    
     "fonts": [
       {
         "asset": "assets/fonts/Teko-Regular.ttf",
