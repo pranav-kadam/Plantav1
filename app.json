@@ -8,15 +8,15 @@
       "web"
     ],
     "orientation": "portrait",
-    "icon": "./assets/favicon.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "fonts": [
-      {
-        "asset": "assets/fonts/Teko-Regular.ttf",
-        "family": "teko"
-      },
-      {
+       {
         "asset": "assets/fonts/PlusJakartaSans-Medium.ttf",
         "family": "jak"
       }
