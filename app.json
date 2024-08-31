@@ -17,7 +17,7 @@
     },
     "fonts": [
        {
-        "asset": "assets/fonts/PlusJakartaSans-Medium.ttf",
+        "asset": "./assets/fonts/PlusJakartaSans-Medium.ttf",
         "family": "jak"
       }
     ],

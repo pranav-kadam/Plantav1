@@ -14,7 +14,7 @@ import TemperatureScreen from './Pages/TemperatureScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useFonts } from 'expo-font';
-import { lazy, Suspense } from 'react';
+import { Suspense } from 'react';
 import { ActivityIndicator } from 'react-native';
 
 const Stack = createNativeStackNavigator();
