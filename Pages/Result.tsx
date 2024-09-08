@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#000',
     marginBottom: 16,
-    fontFamily: 'monospace',
+    fontFamily: 'jak'
   },
   divider: {
     height: 2,
@@ -232,14 +232,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#000',
     marginBottom: 8,
-    fontFamily: 'monospace',
+    fontFamily: 'jak',
   },
   sectionContent: {
     fontSize: 18,
     color: '#000',
     lineHeight: 28,
     marginBottom: 8,
-    fontFamily: 'monospace',
+    fontFamily: 'jak',
   },
   boldText: {
     fontWeight: 'bold',
